@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Telosys Database Repository --><root>
+<tableList databaseId="0" databaseName="MYSQL" databaseProductName="MySQL" generation="2016-11-17 21:20:55">
+<table catalog="projet_youtube" databaseType="TABLE" javaBean="Audio" name="audio" schema="">
+<column dbAutoIncremented="true" dbComment="" dbDefaultValue="" dbName="ID_AUDIO" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="idAudio" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id audio" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="NOM_AUDIO" dbNotNull="false" dbPosition="2" dbSize="45" dbTypeName="VARCHAR" inputType="text" javaName="nomAudio" javaType="java.lang.String" jdbcTypeCode="12" label="Nom audio" maxLength="45" notNull="false" selected="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_playlist_has_audio_I" inverseSideOf="LINK_JT_playlist_has_audio_O" javaName="listOfPlaylist" javaType="java.util.List" joinTableName="playlist_has_audio" mappedBy="listOfAudio" optional="UNDEFINED" owningSide="false" sourceTableName="audio" targetEntity="Playlist" targetTableName="playlist" used="true"/>
+</table>
+<table catalog="projet_youtube" databaseType="TABLE" javaBean="Playlist" name="playlist" schema="">
+<column dbAutoIncremented="true" dbComment="" dbDefaultValue="" dbName="ID_PLAYLIST" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="idPlaylist" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id playlist" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="FK_ID_UTILISATEUR" dbNotNull="true" dbPosition="2" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="fkIdUtilisateur" javaType="java.lang.Integer" jdbcTypeCode="4" label="Fk id utilisateur" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="NOM_PLAYLIST" dbNotNull="false" dbPosition="3" dbSize="45" dbTypeName="VARCHAR" inputType="text" javaName="nomPlaylist" javaType="java.lang.String" jdbcTypeCode="12" label="Nom playlist" maxLength="45" notNull="false" selected="true"/>
+<fk name="playlist_ibfk_1">
+<fkcol colname="FK_ID_UTILISATEUR" colref="ID_UTILISATEUR" deferrable="7" deleterule="3" sequence="1" tablename="playlist" tableref="utilisateur" updaterule="3"/>
+</fk>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_playlist_has_video_O" inverseSideOf="" javaName="listOfVideo" javaType="java.util.List" joinTableName="playlist_has_video" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="playlist" targetEntity="Video" targetTableName="video" used="true">
+<joinTable name="playlist_has_video">
+<joinColumns>
+<joinColumn insertable="false" name="FK_ID_PLAYLIST" nullable="true" referencedColumnName="ID_PLAYLIST" unique="false" updatable="false"/>
+</joinColumns>
+<inverseJoinColumns>
+<joinColumn insertable="false" name="FK_ID_VIDEO" nullable="true" referencedColumnName="ID_VIDEO" unique="false" updatable="false"/>
+</inverseJoinColumns>
+</joinTable>
+</link>
+<link cardinality="ManyToOne" cascade="" fetch="DEFAULT" foreignKeyName="playlist_ibfk_1" id="LINK_FK_playlist_ibfk_1_O" inverseSideOf="" javaName="utilisateur" javaType="Utilisateur" joinTableName="" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="playlist" targetEntity="Utilisateur" targetTableName="utilisateur" used="true">
+<joinColumns>
+<joinColumn insertable="false" name="FK_ID_UTILISATEUR" nullable="true" referencedColumnName="ID_UTILISATEUR" unique="false" updatable="false"/>
+</joinColumns>
+</link>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_playlist_has_audio_O" inverseSideOf="" javaName="listOfAudio" javaType="java.util.List" joinTableName="playlist_has_audio" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="playlist" targetEntity="Audio" targetTableName="audio" used="true">
+<joinTable name="playlist_has_audio">
+<joinColumns>
+<joinColumn insertable="false" name="FK_ID_PLAYLIST" nullable="true" referencedColumnName="ID_PLAYLIST" unique="false" updatable="false"/>
+</joinColumns>
+<inverseJoinColumns>
+<joinColumn insertable="false" name="FK_ID_AUDIO" nullable="true" referencedColumnName="ID_AUDIO" unique="false" updatable="false"/>
+</inverseJoinColumns>
+</joinTable>
+</link>
+</table>
+<table catalog="projet_youtube" databaseType="TABLE" javaBean="PlaylistHasAudio" name="playlist_has_audio" schema="">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="FK_ID_PLAYLIST" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="fkIdPlaylist" javaType="java.lang.Integer" jdbcTypeCode="4" label="Fk id playlist" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="FK_ID_AUDIO" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="fkIdAudio" javaType="java.lang.Integer" jdbcTypeCode="4" label="Fk id audio" notNull="true" selected="true"/>
+<fk name="playlist_has_audio_ibfk_1">
+<fkcol colname="FK_ID_PLAYLIST" colref="ID_PLAYLIST" deferrable="7" deleterule="3" sequence="1" tablename="playlist_has_audio" tableref="playlist" updaterule="3"/>
+</fk>
+<fk name="playlist_has_audio_ibfk_2">
+<fkcol colname="FK_ID_AUDIO" colref="ID_AUDIO" deferrable="7" deleterule="3" sequence="1" tablename="playlist_has_audio" tableref="audio" updaterule="3"/>
+</fk>
+</table>
+<table catalog="projet_youtube" databaseType="TABLE" javaBean="PlaylistHasVideo" name="playlist_has_video" schema="">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="FK_ID_PLAYLIST" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="fkIdPlaylist" javaType="java.lang.Integer" jdbcTypeCode="4" label="Fk id playlist" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="FK_ID_VIDEO" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="fkIdVideo" javaType="java.lang.Integer" jdbcTypeCode="4" label="Fk id video" notNull="true" selected="true"/>
+<fk name="playlist_has_video_ibfk_1">
+<fkcol colname="FK_ID_PLAYLIST" colref="ID_PLAYLIST" deferrable="7" deleterule="3" sequence="1" tablename="playlist_has_video" tableref="playlist" updaterule="3"/>
+</fk>
+<fk name="playlist_has_video_ibfk_2">
+<fkcol colname="FK_ID_VIDEO" colref="ID_VIDEO" deferrable="7" deleterule="3" sequence="1" tablename="playlist_has_video" tableref="video" updaterule="3"/>
+</fk>
+</table>
+<table catalog="projet_youtube" databaseType="TABLE" javaBean="Utilisateur" name="utilisateur" schema="">
+<column dbAutoIncremented="true" dbComment="" dbDefaultValue="" dbName="ID_UTILISATEUR" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="idUtilisateur" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id utilisateur" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="NOM_UTILISATEUR" dbNotNull="false" dbPosition="2" dbSize="45" dbTypeName="VARCHAR" inputType="text" javaName="nomUtilisateur" javaType="java.lang.String" jdbcTypeCode="12" label="Nom utilisateur" maxLength="45" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="PRENOM_UTILISATEUR" dbNotNull="false" dbPosition="3" dbSize="45" dbTypeName="VARCHAR" inputType="text" javaName="prenomUtilisateur" javaType="java.lang.String" jdbcTypeCode="12" label="Prenom utilisateur" maxLength="45" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="ADRESSE_UTILISATEUR" dbNotNull="false" dbPosition="4" dbSize="255" dbTypeName="VARCHAR" inputType="text" javaName="adresseUtilisateur" javaType="java.lang.String" jdbcTypeCode="12" label="Adresse utilisateur" maxLength="255" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="CODE_POSTAL_UTILISATEUR" dbNotNull="false" dbPosition="5" dbSize="5" dbTypeName="VARCHAR" inputType="text" javaName="codePostalUtilisateur" javaType="java.lang.String" jdbcTypeCode="12" label="Code postal utilisateur" maxLength="5" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="VILLE_UTILISATEUR" dbNotNull="false" dbPosition="6" dbSize="45" dbTypeName="VARCHAR" inputType="text" javaName="villeUtilisateur" javaType="java.lang.String" jdbcTypeCode="12" label="Ville utilisateur" maxLength="45" notNull="false" selected="true"/>
+<link cardinality="OneToMany" cascade="" fetch="DEFAULT" foreignKeyName="playlist_ibfk_1" id="LINK_FK_playlist_ibfk_1_I" inverseSideOf="LINK_FK_playlist_ibfk_1_O" javaName="listOfPlaylist" javaType="java.util.List" joinTableName="" mappedBy="utilisateur" optional="UNDEFINED" owningSide="false" sourceTableName="utilisateur" targetEntity="Playlist" targetTableName="playlist" used="true"/>
+</table>
+<table catalog="projet_youtube" databaseType="TABLE" javaBean="Video" name="video" schema="">
+<column dbAutoIncremented="true" dbComment="" dbDefaultValue="" dbName="ID_VIDEO" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="INT UNSIGNED" inputType="number" javaName="idVideo" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id video" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="NOM_VIDEO" dbNotNull="false" dbPosition="2" dbSize="45" dbTypeName="VARCHAR" inputType="text" javaName="nomVideo" javaType="java.lang.String" jdbcTypeCode="12" label="Nom video" maxLength="45" notNull="false" selected="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_playlist_has_video_I" inverseSideOf="LINK_JT_playlist_has_video_O" javaName="listOfPlaylist" javaType="java.util.List" joinTableName="playlist_has_video" mappedBy="listOfVideo" optional="UNDEFINED" owningSide="false" sourceTableName="video" targetEntity="Playlist" targetTableName="playlist" used="true"/>
+</table>
+</tableList>
+</root>
